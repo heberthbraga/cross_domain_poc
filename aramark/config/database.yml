@@ -1,0 +1,23 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8mb4
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV.fetch("DB_USERNAME") %>
+  password: <%= ENV.fetch("DB_PASSWORD") %>
+  port: <%= ENV.fetch("DB_PORT") %>
+  host: <%= ENV.fetch("DB_HOSTNAME") %>
+  socket: /tmp/mysql.sock
+
+development:
+  <<: *default
+  database: aramark_poc_development
+
+test:
+  <<: *default
+  database: aramark_poc_test
+
+production:
+  <<: *default
+  database: aramark_poc_production
+  username: aramark_poc
+  password: <%= ENV['MY_INVEST_PORTFOLIO_API_DATABASE_PASSWORD'] %>

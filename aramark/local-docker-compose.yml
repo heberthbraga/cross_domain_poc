@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  mysql:
+    container_name: aramark-poc
+    image: mysql:8.0.22
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - 127.0.0.1:3310:3306
+    environment: 
+      MYSQL_ROOT_PASSWORD: 'root'
+    volumes:
+      - ./scripts/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+      - ./scripts/mysql/alterUser.sql:/docker-entrypoint-initdb.d/alterUser.sql

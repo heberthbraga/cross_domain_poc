@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script type="text/javascript">
+      function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        const expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+      }
+
+      setCookie('ids', JSON.stringify({ id: "12345678" }), 365);
+      
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) {
+          return parts.pop().split(';').shift();
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+
+    <div class="container">
+      <iframe 
+        id="newUserFrame"
+        class="newUserFrame" 
+        src="http://0388-2804-14d-1289-8f37-f471-d1e-1213-9497.ngrok.io/users/new" 
+        frameborder="0" 
+        width="420" 
+        height="345"
+      >
+      </iframe>
+    </div>
+
+    <script type="text/javascript">
+      function postCrossDomainMessage(msg) {
+        console.log("Sending message", msg);
+        const $newUserFrame = document.getElementById('newUserFrame');
+        const frameWindow = $newUserFrame.contentWindow;
+        frameWindow.postMessage(msg, "http://local.personal.com:3002");
+      }
+
+      // getCookie('ids')
+      postCrossDomainMessage({ 'id': '123456' });
+
+    </script>
+  </body>
+</html>
