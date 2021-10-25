@@ -13,7 +13,7 @@ var app = express();
 app.use(function(req, res, next) {
   res.setHeader(
     "Content-Security-Policy", 
-    "frame-ancestors 'self' http://3fd3-2804-14d-1289-8f37-f471-d1e-1213-9497.ngrok.io/users/new"
+    "frame-ancestors 'self' http://6238-2804-18-7011-c531-e4f3-7f5-352b-6078.ngrok.io/users/new"
   );
   return next();
 });

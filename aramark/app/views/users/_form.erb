@@ -6,9 +6,18 @@
     <%= f.input :first_name %>
     <%= f.input :last_name %>
     <%= f.input :email %>
+    <%= hidden_field_tag :custom_id %>
   </div>
 
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+  document.addEventListener("turbolinks:load", () => {
+    var customId = localStorage.getItem('customId');
+
+    console.log(customId)
+  });
+</script>

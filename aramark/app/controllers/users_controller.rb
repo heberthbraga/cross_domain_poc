@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   end
 
   def create
+    p "params: #{params}"
     @user = User.new(user_params)
 
     respond_to do |format|

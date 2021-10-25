@@ -22,6 +22,8 @@
 
       if (message === 'sendIds') {
         console.log("Ids", JSON.parse(value));
+
+        localStorage.setItem('customId', value.id);
       }
     }
   });

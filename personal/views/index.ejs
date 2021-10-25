@@ -47,7 +47,7 @@
           value
         }
 
-        console.log("Sending message to parent", payload);
+        console.log("Sending message to the child frame", payload);
 
         frameWindow.postMessage(JSON.stringify(payload), "*");
       }
@@ -61,7 +61,7 @@
           const message = JSON.parse(e.data)
 
           if (message.isReady) {
-            console.log("Message recieved from child");
+            console.log("Child frame is ready!");
 
             postCrossDomainMessage('sendIds', getCookie('ids'));
           }
