@@ -4,4 +4,25 @@
   <%= render 'form' %>
 </div>
 
-<%= javascript_pack_tag 'users' %>
+<script type="text/javascript">
+  const PERMITTED_DOMAIN = 'http://local.personal.com:3002';
+
+  // Send a message to the parent
+  window.parent.postMessage(JSON.stringify({ isReady: true }), "*");
+
+  // Receive message from the parent
+  window.addEventListener('message', function(e) {
+    if (e.origin !== PERMITTED_DOMAIN) {
+      return;
+    }
+
+    if (e.data) {
+      console.log("Received message from parent", e.data);
+      const { message, value } = JSON.parse(e.data);
+
+      if (message === 'sendIds') {
+        console.log("Ids", JSON.parse(value));
+      }
+    }
+  });
+</script>

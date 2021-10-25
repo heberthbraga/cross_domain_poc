@@ -6,8 +6,17 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+// var helmet = require('helmet')
 
 var app = express();
+
+app.use(function(req, res, next) {
+  res.setHeader(
+    "Content-Security-Policy", 
+    "frame-ancestors 'self' http://3fd3-2804-14d-1289-8f37-f471-d1e-1213-9497.ngrok.io/users/new"
+  );
+  return next();
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -17,6 +26,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
@@ -33,12 +43,24 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  res.header("Access-Control-Allow-Origin", "Yhttp://0388-2804-14d-1289-8f37-f471-d1e-1213-9497.ngrok.io/users/new"); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-
   // render the error page
   res.status(err.status || 500);
   res.render('error');
 });
 
+// app.use(helmet.contentSecurityPolicy({
+//   useDefaults: true,
+//   directives: {
+//     scriptSrc: ["'self'", 'http://3fd3-2804-14d-1289-8f37-f471-d1e-1213-9497.ngrok.io/users/new'],
+//     defaultSrc: ["'self'", 'http://3fd3-2804-14d-1289-8f37-f471-d1e-1213-9497.ngrok.io/users/new'],
+//     childSrc: ["'self'", 'http://3fd3-2804-14d-1289-8f37-f471-d1e-1213-9497.ngrok.io/users/new'],
+//     frameAncestors: [
+//       "'self'",
+//       'http://3fd3-2804-14d-1289-8f37-f471-d1e-1213-9497.ngrok.io/users/new'
+//     ],
+//     styleSrc: ["'self' https: 'unsafe-inline'"]
+//   },
+// }));
+
 module.exports = app;
+ 

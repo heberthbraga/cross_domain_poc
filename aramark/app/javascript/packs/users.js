@@ -61,3 +61,4 @@ function receiveMessage(e) {
 // Setup an event listener that calls receiveMessage() when the window
 // receives a new MessageEvent.
 window.addEventListener('message', receiveMessage);
+
